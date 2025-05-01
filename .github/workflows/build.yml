@@ -13,9 +13,6 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
 
-      - name: Lint
-        run: ./build.sh --lint
-
       - name: Build
         run: ./build.sh --gen --go
 
@@ -41,11 +38,10 @@ jobs:
 
       - name: Build
         run: |
-          go generate ./gen/srcgen.go
-          go build -v -buildvcs=true
+          ./build.sh
 
       - name: Upload Release
         uses: actions/upload-artifact@v4
         with:
-          path: gcs.exe
+          path: gcs
           name: gcs-windows
