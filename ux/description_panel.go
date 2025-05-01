@@ -180,7 +180,6 @@ func (d *DescriptionPanel) createColumn2() *unison.Panel {
 			d.entity.Profile.Weight = d.entity.Ancestry().RandomWeight(d.entity, d.entity.Profile.Gender, d.entity.Profile.Weight)
 			SetTextAndMarkModified(weightField.Field, d.entity.Profile.Weight.String())
 		}))
-	//weightField.ClientData()[SkipDeepSync] = true
 	column.AddChild(weightField)
 
 	title = i18n.Text("Size")

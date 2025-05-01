@@ -1,0 +1,53 @@
+name: Build
+
+on:
+  push:
+    branches: ["testing"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.20"
+
+      - name: Lint
+        run: ./build.sh --lint
+
+      - name: Build
+        run: ./build.sh --gen --go
+
+      - name: Test
+        run: ./build.sh --test --race
+
+      - name: Build Dist
+        run: ./build.sh --dist
+
+      - name: Upload Release
+        uses: actions/upload-artifact@v4
+        with:
+          path: gcs
+          name: gcs-linux
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.20"
+
+      - name: Build
+        run: ./build.sh --gen --go --dist
+
+      - name: Upload Release
+        uses: actions/upload-artifact@v4
+        with:
+          path: gcs.exe
+          name: gcs-windows

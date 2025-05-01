@@ -684,8 +684,10 @@ func (e *Entity) StrikingStrength() fxp.Int {
 	return st.Trunc()
 }
 
+// FatStrength returns the adjusted ST for fat-related attack purposes.
 func (e *Entity) FatStrength() fxp.Int {
-	var st fxp.Int = e.ResolveAttributeCurrent(StrengthID).Max(0) / 2
+	var st fxp.Int
+	st = e.ResolveAttributeCurrent(StrengthID).Max(0) / 2
 	if e.ResolveAttribute(FatID) != nil {
 		st += e.ResolveAttributeCurrent(FatID) / 2 // Convert to dice.Dice modifier
 	}
@@ -736,7 +738,7 @@ func (e *Entity) Thrust() *dice.Dice {
 	return e.ThrustFor(fxp.As[int](e.StrikingStrength()))
 }
 
-// LiftingThrust returns the lifting thrust value for the current strength.
+// FatAttack returns the fat attack value for the current strength.
 func (e *Entity) FatAttack() *dice.Dice {
 	return e.ThrustFor(fxp.As[int](e.FatStrength()))
 }
@@ -1237,7 +1239,7 @@ func (e *Entity) ResolveVariable(variableName string) string {
 		return result
 	}
 	if WeightID == variableName {
-		result := strconv.Itoa(int(e.Profile.ProfileRandom.Weight / 10000))
+		result := strconv.Itoa(int(e.Profile.Weight / 10000))
 		e.cachedVariables[variableName] = result
 		return result
 	}

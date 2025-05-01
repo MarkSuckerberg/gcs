@@ -121,7 +121,7 @@ func (enum Option) String() string {
 	case OldLeveledSwing:
 		return i18n.Text("sw (leveled)")
 	case FatAttack:
-		return i18n.Text("fat attack")
+		return "fat attack"
 	default:
 		return Option(0).String()
 	}
