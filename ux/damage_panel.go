@@ -59,6 +59,7 @@ func (p *DamagePanel) rebuild() {
 	p.RemoveAllChildren()
 	p.addDamageField(i18n.Text("Basic Thrust"), func() string { return p.entity.Thrust().String() })
 	p.addDamageField(i18n.Text("Basic Swing"), func() string { return p.entity.Swing().String() })
+	p.addDamageField(i18n.Text("Fat-Based"), func() string { return p.entity.FatAttack().String() })
 	if p.showLiftingSTDamage = p.entity.SheetSettings.ShowLiftingSTDamage; p.showLiftingSTDamage {
 		p.addDamageField(i18n.Text("Lifting Thrust"), func() string { return p.entity.LiftingThrust().String() })
 		p.addDamageField(i18n.Text("Lifting Swing"), func() string { return p.entity.LiftingSwing().String() })

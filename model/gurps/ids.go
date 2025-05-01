@@ -23,6 +23,7 @@ const (
 	BlockID            = "block"
 	DexterityID        = "dx"
 	DodgeID            = "dodge"
+	FatID              = "fat"
 	IntelligenceID     = "iq"
 	LiftingStrengthID  = "lifting_st"
 	MoveID             = "move"
@@ -36,6 +37,7 @@ const (
 	TechniqueID        = "technique"
 	ThrowingStrengthID = "throwing_st"
 	TorsoID            = "torso"
+	WeightID           = "weight"
 )
 
 // SanitizeID ensures the ID is not empty and consists of only lowercase alphanumeric characters. If permitLeadingDigits

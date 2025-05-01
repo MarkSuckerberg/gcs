@@ -1080,6 +1080,12 @@ var allEnums = []*enumInfo{
 				Key:    "sw_leveled",
 				String: "sw (leveled)",
 			},
+			{
+				Name:       "FatAttack",
+				Key:        "fat",
+				String:     "fat attack",
+				NoLocalize: true,
+			},
 		},
 	},
 	{

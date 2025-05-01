@@ -30,10 +30,11 @@ const (
 	IQSwing
 	OldLeveledThrust
 	OldLeveledSwing
+	FatAttack
 )
 
 // LastOption is the last valid value.
-const LastOption Option = OldLeveledSwing
+const LastOption Option = FatAttack
 
 // Options holds all possible values.
 var Options = []Option{
@@ -48,6 +49,7 @@ var Options = []Option{
 	IQSwing,
 	OldLeveledThrust,
 	OldLeveledSwing,
+	FatAttack,
 }
 
 // Option holds the type of strength dice to add to damage.
@@ -55,7 +57,7 @@ type Option byte
 
 // EnsureValid ensures this is of a known value.
 func (enum Option) EnsureValid() Option {
-	if enum <= OldLeveledSwing {
+	if enum <= FatAttack {
 		return enum
 	}
 	return 0
@@ -86,6 +88,8 @@ func (enum Option) Key() string {
 		return "thr_leveled"
 	case OldLeveledSwing:
 		return "sw_leveled"
+	case FatAttack:
+		return "fat"
 	default:
 		return Option(0).Key()
 	}
@@ -116,6 +120,8 @@ func (enum Option) String() string {
 		return i18n.Text("thr (leveled)")
 	case OldLeveledSwing:
 		return i18n.Text("sw (leveled)")
+	case FatAttack:
+		return i18n.Text("fat attack")
 	default:
 		return Option(0).String()
 	}

@@ -193,6 +193,7 @@ func (e *Entity) MarshalJSON() ([]byte, error) {
 	e.Recalculate()
 	type calc struct {
 		Swing                 *dice.Dice `json:"swing"`
+		Fat                   *dice.Dice `json:"fat"`
 		Thrust                *dice.Dice `json:"thrust"`
 		BasicLift             fxp.Weight `json:"basic_lift"`
 		LiftingStrengthBonus  fxp.Int    `json:"lifting_st_bonus,omitempty"`
@@ -211,6 +212,7 @@ func (e *Entity) MarshalJSON() ([]byte, error) {
 		EntityData: e.EntityData,
 		Calc: calc{
 			Swing:                 e.Swing(),
+			Fat:                   e.FatAttack(),
 			Thrust:                e.Thrust(),
 			BasicLift:             e.BasicLift(),
 			LiftingStrengthBonus:  e.LiftingStrengthBonus,
@@ -682,6 +684,15 @@ func (e *Entity) StrikingStrength() fxp.Int {
 	return st.Trunc()
 }
 
+func (e *Entity) FatStrength() fxp.Int {
+	var st fxp.Int = e.ResolveAttributeCurrent(StrengthID).Max(0) / 2
+	if e.ResolveAttribute(FatID) != nil {
+		st += e.ResolveAttributeCurrent(FatID) / 2 // Convert to dice.Dice modifier
+	}
+	st += e.StrikingStrengthBonus
+	return st.Trunc()
+}
+
 // LiftingStrength returns the adjusted ST for lifting purposes.
 func (e *Entity) LiftingStrength() fxp.Int {
 	var st fxp.Int
@@ -723,6 +734,11 @@ func (e *Entity) TelekineticStrength() fxp.Int {
 // Thrust returns the thrust value for the current strength.
 func (e *Entity) Thrust() *dice.Dice {
 	return e.ThrustFor(fxp.As[int](e.StrikingStrength()))
+}
+
+// LiftingThrust returns the lifting thrust value for the current strength.
+func (e *Entity) FatAttack() *dice.Dice {
+	return e.ThrustFor(fxp.As[int](e.FatStrength()))
 }
 
 // LiftingThrust returns the lifting thrust value for the current strength.
@@ -1217,6 +1233,11 @@ func (e *Entity) ResolveVariable(variableName string) string {
 	defer func() { delete(e.variableResolverExclusions, variableName) }()
 	if SizeModifierID == variableName {
 		result := strconv.Itoa(e.Profile.AdjustedSizeModifier())
+		e.cachedVariables[variableName] = result
+		return result
+	}
+	if WeightID == variableName {
+		result := strconv.Itoa(int(e.Profile.ProfileRandom.Weight / 10000))
 		e.cachedVariables[variableName] = result
 		return result
 	}
