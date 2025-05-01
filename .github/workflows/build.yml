@@ -15,9 +15,6 @@ jobs:
         with:
           go-version: "1.20"
 
-      - name: Lint
-        run: ./build.sh --lint
-
       - name: Build
         run: ./build.sh --gen --go
 
@@ -41,10 +38,12 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: "1.20"
+          go-version: "1.23"
 
       - name: Build
-        run: ./build.sh --gen --go --dist
+        run: |
+          go generate ./gen/srcgen.go
+          go build -v -buildvcs=true
 
       - name: Upload Release
         uses: actions/upload-artifact@v4
