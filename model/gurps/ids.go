@@ -24,6 +24,7 @@ const (
 	DexterityID        = "dx"
 	DodgeID            = "dodge"
 	FatID              = "fat"
+	HeightID           = "height"
 	IntelligenceID     = "iq"
 	LiftingStrengthID  = "lifting_st"
 	MoveID             = "move"

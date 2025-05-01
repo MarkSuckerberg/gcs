@@ -121,6 +121,20 @@
       "placement": "primary"
     },
     {
+      "id": "fat_stage",
+      "type": "integer_ref",
+      "name": "Fat Stage",
+      "attribute_base": "$real_weight_calculation / (0.0011 * $height ^ 2 * $st) - 1",
+      "placement": "primary"
+    },
+    {
+      "id": "next_fat_stage",
+      "type": "integer_ref",
+      "name": "Next Fat Stage",
+      "attribute_base": "($fat_stage + 1) * (0.0011 * $height ^ 2 * $st)",
+      "placement": "primary"
+    },
+    {
       "id": "fp",
       "type": "pool",
       "name": "FP",

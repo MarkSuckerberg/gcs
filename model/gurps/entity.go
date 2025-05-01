@@ -1243,6 +1243,11 @@ func (e *Entity) ResolveVariable(variableName string) string {
 		e.cachedVariables[variableName] = result
 		return result
 	}
+	if HeightID == variableName {
+		result := strconv.Itoa(int(e.Profile.Height / 10000))
+		e.cachedVariables[variableName] = result
+		return result
+	}
 	parts := strings.SplitN(variableName, ".", 2)
 	attr := e.Attributes.Set[parts[0]]
 	if attr == nil {

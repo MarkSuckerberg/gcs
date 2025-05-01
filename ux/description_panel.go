@@ -168,7 +168,6 @@ func (d *DescriptionPanel) createColumn2() *unison.Panel {
 			d.entity.Profile.Height = d.entity.Ancestry().RandomHeight(d.entity, d.entity.Profile.Gender, d.entity.Profile.Height)
 			SetTextAndMarkModified(heightField.Field, d.entity.Profile.Height.String())
 		}))
-	heightField.ClientData()[SkipDeepSync] = true
 	column.AddChild(heightField)
 
 	title = i18n.Text("Weight")
